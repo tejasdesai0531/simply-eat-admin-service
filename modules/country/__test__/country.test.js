@@ -11,4 +11,5 @@ it('can create country', async () => {
     console.log(response.body.data)
 
     expect(response.body.data.countryList.length).toEqual(1);
+    expect(response.body.data.countryList[0].name).toEqual('India');
 })
