@@ -4,6 +4,7 @@ const mongoWrapper = require('./config/mongo-wrapper')
 const CityCreatedListner = require('./events/listeners/city-created-listener')
 const app = require('./app')
 
+
 const start = async () => {
 
   try {
