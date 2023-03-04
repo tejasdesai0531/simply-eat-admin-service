@@ -2,7 +2,7 @@ const request = require('supertest')
 const app = require('../../../app')
 
 
-it('can create country', async () => {
+it('it can create country', async () => {
 
     await request(app).post('/api/country').send({name: 'India', code: 'IND', status: true})
 
