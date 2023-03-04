@@ -24,10 +24,13 @@
   },
   "homepage": "https://github.com/tejasdesai0531/simply-eat-admin-service#readme",
   "dependencies": {
+    "@simply-eat/common": "^2.0.11",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.3",
+    "joi": "^17.8.3",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.1",
     "node-nats-streaming": "^0.3.2"
   },

@@ -3,13 +3,15 @@ const app = express()
 const cors = require('cors')
 
 const indexRouter = require('./modules/route')
-const CustomError = require('./errors/custom-error')
-const NotFoundError = require('./errors/not-found-error')
-
-const errorHandler = require('./middlewares/error-handler')
+const { NotFoundError } = require('@simply-eat/common')
+const { errorHandler } = require('@simply-eat/common')
+const { currentUser, requireAuth } = require("@simply-eat/common")
 
 app.use(express.json())
 app.use(cors())
+
+app.use(currentUser)
+app.use(requireAuth)
 
 app.use('/api', indexRouter)
 
