@@ -1,4 +1,4 @@
-const Listner = require('./base-listener')
+const { Listner } = require('@simply-eat/common')
 
 class CityCreatedListner extends Listner {
 

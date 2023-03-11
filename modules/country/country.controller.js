@@ -1,7 +1,5 @@
-const BadRequestError = require('../../errors/bad-request-error')
 const CountryModel = require('../../models/country.model')
 const { validationResult } = require('express-validator')
-const RequestValidationError = require('../../errors/request-validation-error')
 const CityCreatedPublisher = require('../../events/publishers/city-created-publisher')
 const natsWrapper = require('../../config/nats-wrapper')
 

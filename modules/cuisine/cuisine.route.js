@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
-const validateRequest = require('../../middlewares/validate-request')
+const { validateRequest } = require('@simply-eat/common')
 
 const { cuisineValidator } = require('./cuisine.validator')
 
 const cuisineController = require('./cuisine.controller')
 
 router.get('/', cuisineController.getCuisineList)
-router.post('/', cuisineValidator, cuisineController.addCuisine)
+router.post('/', cuisineValidator, validateRequest, cuisineController.addCuisine)
 
 module.exports = router;

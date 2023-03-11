@@ -1,7 +1,6 @@
-const BadRequestError = require('../../errors/bad-request-error')
+const { BadRequestError } = require('@simply-eat/common')
 const CuisineModel = require('../../models/cuisine.model')
-const { validationResult } = require('express-validator')
-const RequestValidationError = require('../../errors/request-validation-error')
+const { RequestValidationError } = require('@simply-eat/common')
 const CityCreatedPublisher = require('../../events/publishers/city-created-publisher')
 const natsWrapper = require('../../config/nats-wrapper')
 
@@ -9,11 +8,6 @@ const natsWrapper = require('../../config/nats-wrapper')
 async function addCuisine(req, res, next) {
 
     try {
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            throw new RequestValidationError(errors)
-        }
 
         const name = req.body.name
         const code = req.body.code
