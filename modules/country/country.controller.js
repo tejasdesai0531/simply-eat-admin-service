@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator')
 const CityCreatedPublisher = require('../../events/publishers/city-created-publisher')
 const natsWrapper = require('../../config/nats-wrapper')
 const { BadRequestError } = require('@simply-eat/common')
+const CountryCreatedPublisher = require('../../events/publishers/country-created-publisher')
 
 
 async function addCountry(req, res, next) {
@@ -19,6 +20,8 @@ async function addCountry(req, res, next) {
         }
 
         const country = await CountryModel.addCountry({ name, code, status })
+
+        new CountryCreatedPublisher(natsWrapper.getClient()).publish(country)
     
         res.send({
             error: false,
