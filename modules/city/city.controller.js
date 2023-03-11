@@ -1,7 +1,7 @@
-const BadRequestError = require('../../errors/bad-request-error')
+const {BadRequestError} = require('@simply-eat/common')
 const CityModel = require('../../models/city.model')
 const { validationResult } = require('express-validator')
-const RequestValidationError = require('../../errors/request-validation-error')
+const {RequestValidationError} = require('@simply-eat/common')
 const CityCreatedPublisher = require('../../events/publishers/city-created-publisher')
 const natsWrapper = require('../../config/nats-wrapper')
 

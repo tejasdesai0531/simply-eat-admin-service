@@ -8,7 +8,7 @@ it('it can create country', async () => {
 
     const response = await request(app).get('/api/country').send()
 
-    console.log(response.body.data)
+    console.log(response.body)
 
     expect(response.body.data.countryList.length).toEqual(1);
     expect(response.body.data.countryList[0].name).toEqual('India');

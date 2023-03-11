@@ -13,7 +13,7 @@ const citySchema = new mongoose.Schema({
 citySchema.options.toJSON = {
     transfrom: function(doc, ret, options) {
         ret.id = ret._id;
-        delete reity
+        delete ret._id
         delete ret.__v;
         return ret
     }

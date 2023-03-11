@@ -7,6 +7,7 @@ const natsWrapper = require('../../config/nats-wrapper')
 async function addCountry(req, res, next) {
 
     try {
+        console.log('====req.body',req.body);
         const name = req.body.name
         const code = req.body.code
         const status = req.body.status
@@ -21,6 +22,7 @@ async function addCountry(req, res, next) {
             }
         })
     } catch (error) {
+        console.log('+====error',error);
         next(error)
     }
 }
