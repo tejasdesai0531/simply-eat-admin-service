@@ -1,10 +1,15 @@
 const request = require('supertest')
 const app = require('../../../app')
+const CountryModel = require('../../../models/country.model')
 
 
 it('This test case will create an city', async () => {
 
-    await request(app).post('/api/city').send({name: 'Mumbai', code: 'MUM', status: true})
+    let country = await CountryModel.addCountry({name: 'India', code: 'IND', status: true})
+
+    console.log("Country ID : ", country.id)
+
+    await request(app).post('/api/city').send({name: 'Mumbai', code: 'MUM', status: true, countryId: country.id})
 
     const response = await request(app).get('/api/city').send()
 

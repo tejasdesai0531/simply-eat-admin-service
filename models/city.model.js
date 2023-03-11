@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 const citySchema = new mongoose.Schema({
     name: { type: String, required: true },
     code: { type: String, required: true },
     status: { type: Boolean, required: true },
+    countryId: { type: Schema.Types.ObjectId, ref: 'Country' }
 },{
     collation: { locale: 'en_US', strength: 1 },
     usePushEach: true,
