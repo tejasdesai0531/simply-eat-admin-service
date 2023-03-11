@@ -27,6 +27,10 @@ countrySchema.statics.getCountries = () => {
     return Country.find({})
 }
 
+countrySchema.statics.getCountryByCode = (code) => {
+    return Country.findOne({code: code})
+}
+
 
 const Country = mongoose.model('Country', countrySchema)
 

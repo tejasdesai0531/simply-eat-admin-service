@@ -2,6 +2,7 @@ const CountryModel = require('../../models/country.model')
 const { validationResult } = require('express-validator')
 const CityCreatedPublisher = require('../../events/publishers/city-created-publisher')
 const natsWrapper = require('../../config/nats-wrapper')
+const { BadRequestError } = require('@simply-eat/common')
 
 
 async function addCountry(req, res, next) {
@@ -12,6 +13,11 @@ async function addCountry(req, res, next) {
         const code = req.body.code
         const status = req.body.status
     
+        const existingCountry = await CountryModel.getCountryByCode(code)
+        if(existingCountry) {
+            throw new BadRequestError('Country code already exists')
+        }
+
         const country = await CountryModel.addCountry({ name, code, status })
     
         res.send({
@@ -22,7 +28,6 @@ async function addCountry(req, res, next) {
             }
         })
     } catch (error) {
-        console.log('+====error',error);
         next(error)
     }
 }

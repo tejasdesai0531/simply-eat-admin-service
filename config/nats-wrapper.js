@@ -13,8 +13,8 @@ class NatsWrapper {
     }
 
     connect() {
-        this.#client = stan.connect('test-cluster', 'client-name', {
-            url: 'nats://54.175.73.149:4222',
+        this.#client = stan.connect('test-cluster', 'client-name-223', {
+            url: 'nats://44.204.41.148:4222',
         });
 
         return new Promise((resolve, reject) => {
