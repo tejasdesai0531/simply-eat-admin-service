@@ -8,5 +8,7 @@ const countryController = require('./country.controller')
 
 router.get('/', countryController.getCountryList)
 router.post('/',countryValidator,validateRequest, countryController.addCountry)
+router.put('/:id', countryController.editCountry)
+
 
 module.exports = router;

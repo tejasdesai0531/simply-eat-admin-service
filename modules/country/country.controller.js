@@ -39,7 +39,33 @@ async function getCountryList(req, res) {
     })
 }
 
+async function editCountry(req, res, next) {
+
+    try {
+
+        console.log('====req.body',req.body);
+        const id = req.body.id
+        const name = req.body.name
+        const code = req.body.code
+        const status = req.body.status
+
+        const country = await CountryModel.editCountry({ id, name, code, status })
+
+        res.send({
+            error: false,
+            message: "Country edited successfully",
+            data: {
+                country
+            }
+        })
+        
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     addCountry,
-    getCountryList
+    getCountryList,
+    editCountry
 }

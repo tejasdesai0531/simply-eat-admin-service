@@ -27,6 +27,10 @@ countrySchema.statics.getCountries = () => {
     return Country.find({})
 }
 
+countrySchema.statics.editCountry = () => {
+    return Country.edit({})
+}
+
 
 const Country = mongoose.model('Country', countrySchema)
 
