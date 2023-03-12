@@ -18,6 +18,7 @@ async function addCity(req, res, next) {
         const name = req.body.name
         const code = req.body.code
         const status = req.body.status
+        const countryId = req.body.countryId
     
         const city = await CityModel.addCity({ name, code, status })
     
