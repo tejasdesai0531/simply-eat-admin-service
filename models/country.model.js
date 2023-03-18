@@ -27,6 +27,11 @@ countrySchema.statics.getCountries = () => {
     return Country.find({})
 }
 
+countrySchema.statics.editCountry = () => {
+    return Country.edit({})
+
+}
+
 countrySchema.statics.getCountryByCode = (code) => {
     return Country.findOne({code: code})
 }
