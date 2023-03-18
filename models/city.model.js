@@ -25,7 +25,7 @@ citySchema.statics.addCity = (city) => {
     return City.create(city)
 }
 
-citySchema.statics.getCity = () => {
+citySchema.statics.getCityList = () => {
     return City.find({})
 }
 

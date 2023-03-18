@@ -10,8 +10,8 @@ const { currentUser, requireAuth } = require("@simply-eat/common")
 app.use(express.json())
 app.use(cors())
 
-// app.use(currentUser)
-// app.use(requireAuth)
+app.use(currentUser)
+app.use(requireAuth)
 
 app.use('/api', indexRouter)
 

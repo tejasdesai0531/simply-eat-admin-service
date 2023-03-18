@@ -4,9 +4,17 @@ const app = require('../../../app')
 
 it('This test case will create an cuisine', async () => {
 
-    await request(app).post('/api/cuisine').send({name: 'Desert', code: 'DST', status: true})
+    const token = global.signin()
 
-    const response = await request(app).get('/api/cuisine').send()
+    await request(app)
+            .post('/api/cuisine')
+            .set('token', token)
+            .send({name: 'Desert', code: 'DST', status: true})
+
+    const response = await request(app)
+                            .get('/api/cuisine')
+                            .set('token', token)
+                            .send()
 
     console.log(response.body.data)
 
@@ -16,8 +24,11 @@ it('This test case will create an cuisine', async () => {
 
 it('returns 400 status code if name is not provided', async () => {
 
+    const token = global.signin()
+
     await request(app)
         .post('/api/cuisine')
+        .set('token', token)
         .send({code: 'DST', status: true})
         .expect(400)
 })
