@@ -4,9 +4,17 @@ const app = require('../../../app')
 
 it('it can create country', async () => {
 
-    await request(app).post('/api/country').send({name: 'India', code: 'IND', status: true})
+    const token = global.signin()
 
-    const response = await request(app).get('/api/country').send()
+    await request(app)
+            .post('/api/country')
+            .set('token', token)
+            .send({name: 'India', code: 'IND', status: true})
+
+    const response = await request(app)
+                            .get('/api/country')
+                            .set('token', token)
+                            .send()
 
     console.log(response.body)
 
@@ -16,9 +24,15 @@ it('it can create country', async () => {
 
 it('check for duplicate country code', async () => {
 
-    await request(app).post('/api/country').send({name: 'India', code: 'IND', status: true})
+    const token = global.signin()
+
     await request(app)
             .post('/api/country')
+            .set('token', token)
+            .send({name: 'India', code: 'IND', status: true})
+    await request(app)
+            .post('/api/country')
+            .set('token', token)
             .send({name: 'India', code: 'IND', status: true})
             .expect(400)
 

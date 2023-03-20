@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/tejasdesai0531/simply-eat-admin-service#readme",
   "dependencies": {
-    "@simply-eat/common": "^2.0.14",
+    "@simply-eat/common": "^2.0.15",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
