@@ -27,13 +27,16 @@ countrySchema.statics.getCountries = () => {
     return Country.find({})
 }
 
-countrySchema.statics.editCountry = () => {
-    return Country.edit({})
-
+countrySchema.statics.updateCountry = () => {
+    return Country.findByIdAndUpdate({})
 }
 
 countrySchema.statics.getCountryByCode = (code) => {
     return Country.findOne({code: code})
+}
+
+countrySchema.statics.deleteCountry = (code) => {
+    return Country.findByIdAndRemove({code: code})
 }
 
 

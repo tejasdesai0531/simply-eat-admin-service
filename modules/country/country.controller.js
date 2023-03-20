@@ -9,20 +9,20 @@ const CountryCreatedPublisher = require('../../events/publishers/country-created
 async function addCountry(req, res, next) {
 
     try {
-        console.log('====req.body',req.body);
+        console.log('====req.body', req.body);
         const name = req.body.name
         const code = req.body.code
         const status = req.body.status
-    
+
         const existingCountry = await CountryModel.getCountryByCode(code)
-        if(existingCountry) {
+        if (existingCountry) {
             throw new BadRequestError('Country code already exists')
         }
 
         const country = await CountryModel.addCountry({ name, code, status })
 
         new CountryCreatedPublisher(natsWrapper.getClient()).publish(country)
-    
+
         res.send({
             error: false,
             message: "Country created successfully",
@@ -47,33 +47,73 @@ async function getCountryList(req, res) {
     })
 }
 
-async function editCountry(req, res, next) {
+// async function editCountry(req, res, next) {
 
-    try {
+//     try {
 
-        console.log('====req.body',req.body);
-        const id = req.body.id
-        const name = req.body.name
-        const code = req.body.code
-        const status = req.body.status
+//         console.log('====req.body', req.body);
+//         const id = req.body.id
+// const name = req.body.name
+// const code = req.body.code
+// const status = req.body.status
 
-        const country = await CountryModel.editCountry({ id, name, code, status })
+//         const country = await CountryModel.editCountry({ id, name, code, status })
 
-        res.send({
-            error: false,
-            message: "Country edited successfully",
-            data: {
-                country
+//         res.send({
+//             error: false,
+//             message: "Country edited successfully",
+//             data: {
+//                 country
+//             }
+//         })
+
+//     } catch (error) {
+
+//     }
+// }
+
+async function updateCountry(req, res) {
+    CountryModel.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        code: req.body.code,
+        status: req.body.status,
+    }, { new: true })
+        .then(user => {
+            if (!user) {
+                return res.status(404).send({
+                    message: "country not found with id " + req.params.id
+                });
+            };
+            res.send(user);
+        }).catch(err => {
+            return res.send.status(500).send({
+                message: "Error updating user with id " + req.params.id
+            });
+        });
+};
+
+async function deleteCountry(req, res) {
+
+    CountryModel.findByIdAndRemove(req.params.id)
+        .then(country => {
+            if (!country) {
+                return res.status(400).send({
+                    message: "country has been not deleted with id " + + req.params.id
+                });
             }
+            res.send({ message: "country deleted successfully!" });
+        }).catch(err => {
+            return res.status(500).send({
+                message: "Could not delete country with id " + req.params.id
+            });
         })
-        
-    } catch (error) {
-        
-    }
 }
+
+
 
 module.exports = {
     addCountry,
     getCountryList,
-    editCountry
+    updateCountry,
+    deleteCountry
 }

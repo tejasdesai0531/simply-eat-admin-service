@@ -18,7 +18,7 @@ async function addCity(req, res, next) {
         const name = req.body.name
         const code = req.body.code
         const status = req.body.status
-        const countryId = req.body.countryId
+        const cityId = req.body.cityId
     
         const city = await CityModel.addCity({ name, code, status })
     
@@ -44,6 +44,44 @@ async function getCityList(req, res) {
             cityList: cities
         }
     })
+}
+
+
+async function updateCity(req, res) {
+    CityModel.findByIdAndUpdate(req.body.id, {
+        name: req.body.name,
+        code: req.body.code,
+        status: req.body.status,
+    }, { new: true })
+        .then(user => {
+            if (!user) {
+                return res.status(404).send({
+                    message: "city not found with id " + req.body.id
+                });
+            };
+            res.send(user);
+        }).catch(err => {
+            return res.send.status(500).send({
+                message: "Error updating user with id " + req.body.id
+            });
+        });
+};
+
+async function deleteCity(req, res) {
+
+    CityModel.findByIdAndRemove(req.body.id)
+        .then(city => {
+            if (!city) {
+                return res.status(400).send({
+                    message: "city has been not deleted with id " + + req.body.id
+                });
+            }
+            res.send({ message: "city deleted successfully!" });
+        }).catch(err => {
+            return res.status(500).send({
+                message: "Could not delete city with id " + req.body.id
+            });
+        })
 }
 
 module.exports = {

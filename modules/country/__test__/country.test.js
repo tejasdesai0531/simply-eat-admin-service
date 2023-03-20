@@ -23,3 +23,15 @@ it('check for duplicate country code', async () => {
             .expect(400)
 
 })
+
+it('it can update country', async () => {
+
+    await request(app).put('/api/country').send({name: 'India', code: 'IND', status: true})
+
+    const response = await request(app).get('/api/country').send()
+
+    console.log(response.body)
+
+    expect(response.body.data.countryList.length).toEqual(1);
+    expect(response.body.data.countryList[0].name).toEqual('India');
+})
